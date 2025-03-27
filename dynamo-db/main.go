@@ -34,16 +34,20 @@ type Plant struct {
 	Indoor           bool    `json:"indoor" dynamodbav:"indoor"`
 }
 
-const (
-	tableName = "Plants"
-	region    = "ap-south-1" // Change this to your AWS region
+// this will be changed in the main function
+var (
+	tableName = ""
+	region    = "" // Change this to your AWS region
 )
 
 var dbClient *dynamodb.Client
 
 func main() {
-
 	err := godotenv.Load()
+
+	tableName = os.Getenv("DYNAMO_DB_TABLE")
+	region = os.Getenv("AWS_REGION")
+
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
