@@ -1,0 +1,23 @@
+services:
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db-container
+    env_file:
+        - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - './mysql-data:/var/lib/mysql'
+    restart: unless-stopped
+
+  cloudbeaver-db-manager:
+    image: 'dbeaver/cloudbeaver:latest'
+    container_name: cloudbeaver
+    depends_on:
+      - mysql-db
+    restart: always
+    ports:
+      - '8978:8978'
+    network_mode: host
+    volumes:
+      - './cloud-beaver-data:/opt/cloudbeaver/workspace'
