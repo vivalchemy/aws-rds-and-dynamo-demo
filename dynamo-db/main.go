@@ -80,7 +80,7 @@ func main() {
 	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "DELETE"})
 
 	fmt.Printf("Server is running on port %s\n", port)
-	log.Fatal(http.ListenAndServe(":"+port, handlers.CORS(originsOk, headersOk, methodsOk)(router)))
+	log.Fatal(http.ListenAndServe("0.0.0.0:"+port, handlers.CORS(originsOk, headersOk, methodsOk)(router)))
 }
 
 // Ensure the Plants table exists, create it if it doesn't
